@@ -1,18 +1,25 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        """ PAYPALISHIRING  = 3     14//3 = 4
-        P  A  Y  P  A  L  I  S  H  I  R  I  N  G
-        0  4  11 5  1  6  12 7  2  8  13 9  3  10    
-        """
+        if len(s) <= 1 or numRows == 1:
+            return s
+        t = divmod(len(s), 2*numRows - 2)
+        quotient = t[0]; remainder = t[1]
+        factor = 0
+        l = []
+        factor = 1 if remainder <= numRows else 1 + remainder - numRows
 
-        """PAYPALISHIRING   = 4     14//4 = 3
-        P  A  Y  P  A  L  I  S  H  I  R  I  N  G
-        0  3  8  12 9  4  1  5  10 13 11 6  2  7
-        """
-
-s = "PAYPALISHIRING"
-numRows = 3
-for i in range(1, numRows+1): # 1 2 3
-    ind = numRows - i if numRows - i != 0 else numRows - 1
-    print(s[i-1::2*ind])
-    
+        for i in range(numRows): # 0 1 2 3 4
+            if i == 0 or i == numRows -1:
+                for j in range(quotient + factor): # 0 1 2 + factor
+                    try:
+                        l.append(s[i + 2*(numRows - 1)*j])
+                    except:
+                        nop = 0
+            else:
+                for j in range(quotient + factor): # 0 1 2 + factor
+                    try:
+                        l.append(s[i + 2*(numRows - 1)*j])
+                        l.append(s[i + 2*(numRows - 1)*j + (numRows - i - 1)*2])
+                    except:
+                        nop = 0
+        return "".join(i for i in l)
