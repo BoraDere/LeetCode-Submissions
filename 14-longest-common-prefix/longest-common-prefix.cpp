@@ -1,7 +1,7 @@
 struct Node {
     Node* child[26];
-    bool isLast;
     int childCount;
+    bool isLast;
     Node() {
         for (int i = 0; i < 26; i++) {
             child[i] = NULL;
@@ -14,32 +14,34 @@ struct Node {
 class Trie {
     private:
         Node* root;
+
     public:
         Trie() {
             root = new Node();
         }
-        void insert(std::string& key) {
+
+        void insert(string& key) {
             Node* curr = root;
-            for (int i = 0; i < key.length(); i++) {
+            for (int i = 0; i < key.size(); i++) {
                 int index = key[i] - 'a';
                 if (curr->child[index] == NULL) {
-                    curr->child[index] = new Node();
+                    curr->child[index] = new Node;
                     curr->childCount++;
                 }
-                curr = curr->child[index];
+            curr = curr->child[index];
             }
             curr->isLast = true;
         }
+
         void findPrefix(string& key, string& ans) {
             Node* curr = root;
             for (int i = 0; i < key.size(); i++) {
                 int index = key[i] - 'a';
-                if (curr->childCount != 1 || curr->isLast) {
+                if (curr->isLast || curr->childCount > 1) {
                     break;
                 }
-                curr = curr->child[index];
                 ans += key[i];
-                
+                curr = curr->child[index];
             }
         }
 };
@@ -47,20 +49,19 @@ class Trie {
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
-        if (strs.empty()) return "";
+        if (strs.empty()) {
+            return "";
+        }
 
         Trie trie;
         for (string str : strs) {
             trie.insert(str);
         }
 
-        string key = strs[0];
         string ans = "";
-        
+        string key = strs[0];
         trie.findPrefix(key, ans);
-        if(ans.size()==0){
-            return "";
-        }
+
         return ans;
     }
 };
