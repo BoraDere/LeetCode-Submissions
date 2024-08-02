@@ -62,6 +62,10 @@ public:
         string key = strs[0];
         trie.findPrefix(key, ans);
 
+        if(ans.size()==0){
+            return "";
+        }
+
         return ans;
     }
 };
