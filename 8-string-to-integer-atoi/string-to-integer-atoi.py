@@ -35,10 +35,10 @@ class Solution:
 
         res = sign * int(res)
 
-        if res < -(2**31):
-            return -(2**31)
-        elif res > (2**31) - 1:
-            return (2**31) - 1
+        if res < _min:
+            return _min
+        elif res > _max:
+            return _max
         else:
             return res
 
